@@ -21,7 +21,7 @@ msg_ok "Installed Dependencies"
 
 msg_info "Setting up OpenProject Repository"
 curl -fsSL "https://dl.packager.io/srv/opf/openproject/key" | gpg --dearmor >/etc/apt/trusted.gpg.d/packager-io.gpg
-curl -fsSL "https://dl.packager.io/srv/opf/openproject/stable/15/installer/debian/12.repo" -o "/etc/apt/sources.list.d/openproject.list"
+curl -fsSL "https://dl.packager.io/srv/opf/openproject/stable/16/installer/debian/12.repo" -o "/etc/apt/sources.list.d/openproject.list"
 msg_ok "Setup OpenProject Repository"
 
 msg_info "Setting up PostgreSQL Repository"
