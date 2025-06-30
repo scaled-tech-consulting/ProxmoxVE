@@ -52,7 +52,7 @@ $STD sudo -u postgres psql -c "CREATE DATABASE $DB_NAME WITH OWNER $DB_USER TEMP
 msg_ok "Set up PostgreSQL"
 
 msg_info "Installing OpenProject"
-$STD apt-get install -y openproject
+$STD apt-get install -y openproject=16.1.1
 msg_ok "Installed OpenProject"
 
 msg_info "Configuring OpenProject"
