@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Proxmox Obsidian Headless Installer (GitHub Clone Fix)
+# Proxmox Obsidian Headless Installer (Docker Version)
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
 verb_ip6
@@ -9,48 +9,51 @@ setting_up_container
 network_check
 update_os
 
-msg_info "Installing Dependencies (Node.js, git)"
-curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-$STD apt-get install -y nodejs git wget curl
-msg_ok "Installed Dependencies"
+msg_info "Installing Docker"
+$STD apt-get install -y \
+  apt-transport-https \
+  ca-certificates \
+  curl \
+  software-properties-common
+curl -fsSL https://download.docker.com/linux/debian/gpg | $STD gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" >/etc/apt/sources.list.d/docker.list
+$STD apt-get update
+$STD apt-get install -y docker-ce docker-ce-cli containerd.io
+msg_ok "Installed Docker"
 
-msg_info "Downloading Obsidian AppImage"
-mkdir -p /opt/obsidian
-wget -qO /opt/obsidian/Obsidian.AppImage \
-  "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.12/Obsidian-1.5.12.AppImage"
-chmod +x /opt/obsidian/Obsidian.AppImage
-msg_ok "Downloaded Obsidian AppImage"
+msg_info "Setting up Obsidian Remote directories"
+mkdir -p /opt/obsidian/vaults /opt/obsidian/config
+msg_ok "Created directories for vaults and config"
 
-msg_info "Installing Obsidian-Remote (GitHub clone)"
-git clone https://github.com/sytone/obsidian-remote.git /opt/obsidian-remote
-if [[ -d "/opt/obsidian-remote/remote" ]]; then
-  cd /opt/obsidian-remote/remote || exit
-else
-  cd /opt/obsidian-remote || exit
-fi
-npm install
-msg_ok "Installed Obsidian-Remote"
+msg_info "Running Obsidian Remote Docker container"
+docker run -d \
+  --name obsidian-remote \
+  -v /opt/obsidian/vaults:/vaults \
+  -v /opt/obsidian/config:/config \
+  -p 8080:8080 \
+  ghcr.io/sytone/obsidian-remote:latest
+msg_ok "Started Obsidian Remote Docker container"
 
-msg_info "Creating Systemd Service for Obsidian Headless"
-cat <<EOF >/etc/systemd/system/obsidian.service
+msg_info "Creating Systemd Service for Obsidian Remote"
+cat <<EOF >/etc/systemd/system/obsidian-remote.service
 [Unit]
-Description=Obsidian Remote Headless Server
-After=network.target
+Description=Obsidian Remote Headless (Docker)
+After=docker.service
+Requires=docker.service
 
 [Service]
-Type=simple
-ExecStart=/usr/bin/node /opt/obsidian-remote/remote/index.js --appimage /opt/obsidian/Obsidian.AppImage --port 8080 --host 0.0.0.0
-Restart=on-failure
-User=root
+Restart=always
+ExecStart=/usr/bin/docker start -a obsidian-remote
+ExecStop=/usr/bin/docker stop -t 2 obsidian-remote
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
 $STD systemctl daemon-reload
-$STD systemctl enable obsidian
-$STD systemctl start obsidian
-msg_ok "Started Obsidian Headless Server"
+$STD systemctl enable obsidian-remote
+$STD systemctl start obsidian-remote
+msg_ok "Created and started systemd service for Obsidian Remote"
 
 motd_ssh
 customize
