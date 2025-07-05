@@ -2,6 +2,9 @@
 
 # Proxmox Obsidian Installer
 # Copyright (c) 2021-2025 community-scripts ORG
+# Author: michelroegl-brunner
+# License: MIT
+# Source: https://obsidian.md
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
@@ -10,6 +13,14 @@ catch_errors
 setting_up_container
 network_check
 update_os
+
+msg_info "Removing udisks2 if present (not needed in LXC)"
+apt-get purge -y udisks2 || true
+msg_ok "Removed udisks2"
+
+msg_info "Preventing udisks2 installation (not needed in LXC)"
+apt-mark hold udisks2
+msg_ok "Held udisks2 package"
 
 msg_info "Installing Dependencies"
 $STD apt-get install -y \
@@ -54,7 +65,7 @@ msg_info "Creating Startup Script for Obsidian"
 mkdir -p /root/.vnc
 cat <<EOF >/root/.vnc/xstartup
 #!/bin/sh
-xrdb $HOME/.Xresources
+xrdb \$HOME/.Xresources
 startxfce4 &
 /opt/obsidian/Obsidian.AppImage &
 EOF
@@ -68,4 +79,3 @@ msg_info "Cleaning up"
 $STD apt-get -y autoremove
 $STD apt-get -y autoclean
 msg_ok "Cleaned"
-msg_info "Obsidian installation complete. You can connect to the VNC server using a VNC client."

@@ -8,12 +8,12 @@
   "type": "ct",
   "updateable": true,
   "privileged": false,
-  "interface_port": 8080,
+  "interface_port": 5901,
   "documentation": "https://help.obsidian.md",
   "website": "https://obsidian.md",
   "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons/webp/obsidian.webp",
   "config_path": "/etc/obsidian/conf.d/env",
-  "description": "Obsidian is a powerful knowledge base that works on top of a local folder of plain text Markdown files. It’s a note-taking and personal knowledge management app.",
+  "description": "Obsidian is a powerful knowledge base that works on top of a local folder of plain text Markdown files. This setup runs Obsidian inside a lightweight XFCE desktop in a Proxmox LXC, accessible over VNC.",
   "install_methods": [
     {
       "type": "default",
@@ -28,8 +28,11 @@
     }
   ],
   "default_credentials": {
-    "username": "admin",
-    "password": "admin"
+    "username": "root",
+    "password": "set-your-own"
   },
-  "notes": []
+  "notes": [
+    "Connect using a VNC client to LXC-IP:5901 after installation.",
+    "Default login user: root"
+  ]
 }
