@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Proxmox Obsidian Headless Installer (GitHub Clone Fix)
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
 verb_ip6
@@ -20,13 +21,17 @@ wget -qO /opt/obsidian/Obsidian.AppImage \
 chmod +x /opt/obsidian/Obsidian.AppImage
 msg_ok "Downloaded Obsidian AppImage"
 
-msg_info "Installing Obsidian-Remote"
+msg_info "Installing Obsidian-Remote (GitHub clone)"
 git clone https://github.com/sytone/obsidian-remote.git /opt/obsidian-remote
-cd /opt/obsidian-remote || exit
+if [[ -d "/opt/obsidian-remote/remote" ]]; then
+  cd /opt/obsidian-remote/remote || exit
+else
+  cd /opt/obsidian-remote || exit
+fi
 npm install
 msg_ok "Installed Obsidian-Remote"
 
-msg_info "Creating Systemd Service for Headless Obsidian"
+msg_info "Creating Systemd Service for Obsidian Headless"
 cat <<EOF >/etc/systemd/system/obsidian.service
 [Unit]
 Description=Obsidian Remote Headless Server
@@ -34,7 +39,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/node /opt/obsidian-remote/index.js --appimage /opt/obsidian/Obsidian.AppImage --port 8080 --host 0.0.0.0
+ExecStart=/usr/bin/node /opt/obsidian-remote/remote/index.js --appimage /opt/obsidian/Obsidian.AppImage --port 8080 --host 0.0.0.0
 Restart=on-failure
 User=root
 
