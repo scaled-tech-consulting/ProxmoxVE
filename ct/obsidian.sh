@@ -8,8 +8,8 @@ source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/m
 APP="Obsidian"
 var_tags="${var_tags:-knowledge-management,note-taking,headless}"
 var_cpu="${var_cpu:-2}"
-var_ram="${var_ram:-1024}"
-var_disk="${var_disk:-3}"
+var_ram="${var_ram:-4096}"
+var_disk="${var_disk:-10}"
 var_os="${var_os:-debian}"
 var_version="${var_version:-12}"
 var_unprivileged="${var_unprivileged:-1}"
@@ -39,6 +39,9 @@ function update_script() {
 start
 build_container
 description
+
+msg_info "Running Obsidian install script inside container"
+lxc-attach -n "$CTID" -- bash /root/ct/"$var_install".sh
 
 msg_ok "Completed Successfully!\n"
 echo -e "${CREATING}${GN}${APP} setup has been successfully initialized!${CL}"

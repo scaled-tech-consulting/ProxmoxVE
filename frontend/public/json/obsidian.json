@@ -13,15 +13,15 @@
   "website": "https://obsidian.md",
   "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons/webp/obsidian.webp",
   "config_path": "/etc/obsidian/conf.d/env",
-  "description": "Obsidian running in headless mode via Obsidian-Remote. Access via web browser.",
+  "description": "Obsidian running in headless mode via Obsidian-Remote. Access the app in your browser at port 8080.",
   "install_methods": [
     {
       "type": "default",
       "script": "ct/obsidian.sh",
       "resources": {
         "cpu": 2,
-        "ram": 1024,
-        "hdd": 3,
+        "ram": 4096,
+        "hdd": 10,
         "os": "Debian",
         "version": "12"
       }
@@ -32,7 +32,7 @@
     "password": "set-your-own"
   },
   "notes": [
-    "Access via browser: http://LXC-IP:8080",
-    "Obsidian runs in headless server mode using Obsidian-Remote."
+    "Access Obsidian headless UI in your browser: http://LXC-IP:8080",
+    "This setup does not use a desktop environment or VNC."
   ]
 }

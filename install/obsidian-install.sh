@@ -60,12 +60,3 @@ msg_info "Cleaning up"
 $STD apt-get -y autoremove
 $STD apt-get -y autoclean
 msg_ok "Cleaned"
-msg_ok "Obsidian Headless Installation Completed Successfully!"
-echo -e "${CREATING}${GN}Obsidian Headless setup has been successfully initialized!${CL}"
-echo -e "${INFO}${YW} Access it using VNC at:${CL}"
-echo -e "${TAB}${GATEWAY}${BGN}http://${IP}:8080${CL}"
-echo -e "${INFO}${YW} Use the Obsidian Remote app to connect to your Obsidian instance.${CL}"
-echo -e "${INFO}${YW} For more information, visit:${CL}"
-echo -e "${TAB}${GATEWAY}${BGN}https://obsidian.md/help/Obsidian_Remote${CL}"
-echo -e "${INFO}${YW} Enjoy your Obsidian experience!${CL}"
-exit 0
