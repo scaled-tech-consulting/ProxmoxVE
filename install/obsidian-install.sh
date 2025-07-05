@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
+# Proxmox Obsidian Installer
 # Copyright (c) 2021-2025 community-scripts ORG
-# Author: michelroegl-brunner
-# License: MIT
-# Source: https://obsidian.md
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
@@ -53,6 +51,7 @@ $STD systemctl start obsidian-vnc
 msg_ok "Started VNC Server"
 
 msg_info "Creating Startup Script for Obsidian"
+mkdir -p /root/.vnc
 cat <<EOF >/root/.vnc/xstartup
 #!/bin/sh
 xrdb $HOME/.Xresources
@@ -69,4 +68,4 @@ msg_info "Cleaning up"
 $STD apt-get -y autoremove
 $STD apt-get -y autoclean
 msg_ok "Cleaned"
-msg_info "Obsidian installation completed successfully!"
+msg_info "Obsidian installation complete. You can connect to the VNC server using a VNC client."
