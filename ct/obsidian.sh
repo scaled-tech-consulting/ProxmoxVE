@@ -38,7 +38,7 @@ start
 build_container
 description
 
-msg_info "Running Obsidian install script inside container"
+msg_info "Running Obsidian install script inside container (local copy)"
 lxc-attach -n "$CTID" -- bash /root/ct/"$var_install".sh
 
 msg_ok "Completed Successfully!\n"

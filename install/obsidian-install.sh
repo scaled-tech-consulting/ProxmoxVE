@@ -20,11 +20,11 @@ wget -qO /opt/obsidian/Obsidian.AppImage \
 chmod +x /opt/obsidian/Obsidian.AppImage
 msg_ok "Downloaded Obsidian AppImage"
 
-msg_info "Copying obsidian-remote from local repo"
-cp -r /root/ct/obsidian-remote /opt/obsidian-remote
+msg_info "Installing Obsidian-Remote"
+git clone https://github.com/sytone/obsidian-remote.git /opt/obsidian-remote
 cd /opt/obsidian-remote || exit
 npm install
-msg_ok "Installed obsidian-remote"
+msg_ok "Installed Obsidian-Remote"
 
 msg_info "Creating Systemd Service for Headless Obsidian"
 cat <<EOF >/etc/systemd/system/obsidian.service
