@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Proxmox Obsidian Installer
+# Proxmox Obsidian Headless Installer
 # Copyright (c) 2021-2025 community-scripts ORG
 # Author: michelroegl-brunner
 # License: MIT
@@ -14,23 +14,9 @@ setting_up_container
 network_check
 update_os
 
-msg_info "Removing udisks2 if present (not needed in LXC)"
-apt-get purge -y udisks2 || true
-msg_ok "Removed udisks2"
-
-msg_info "Preventing udisks2 installation (not needed in LXC)"
-apt-mark hold udisks2
-msg_ok "Held udisks2 package"
-
-msg_info "Installing Dependencies"
-$STD apt-get install -y \
-  wget \
-  curl \
-  xorg \
-  xfce4 \
-  xfce4-goodies \
-  tigervnc-standalone-server \
-  dbus-x11
+msg_info "Installing Dependencies (Node.js, Obsidian-Remote)"
+curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+$STD apt-get install -y nodejs wget curl git
 msg_ok "Installed Dependencies"
 
 msg_info "Downloading Obsidian AppImage"
@@ -40,37 +26,32 @@ wget -qO /opt/obsidian/Obsidian.AppImage \
 chmod +x /opt/obsidian/Obsidian.AppImage
 msg_ok "Downloaded Obsidian AppImage"
 
-msg_info "Creating VNC Service"
-cat <<EOF >/etc/systemd/system/obsidian-vnc.service
+msg_info "Installing Obsidian-Remote"
+git clone https://github.com/getobin/obsidian-remote.git /opt/obsidian-remote
+cd /opt/obsidian-remote || exit
+npm install
+msg_ok "Installed Obsidian-Remote"
+
+msg_info "Creating Systemd Service for Headless Obsidian"
+cat <<EOF >/etc/systemd/system/obsidian.service
 [Unit]
-Description=Obsidian VNC Server
+Description=Obsidian Remote Headless Server
 After=network.target
 
 [Service]
 Type=simple
+ExecStart=/usr/bin/node /opt/obsidian-remote/index.js --appimage /opt/obsidian/Obsidian.AppImage --port 8080 --host 0.0.0.0
+Restart=on-failure
 User=root
-ExecStart=/usr/bin/vncserver :1 -geometry 1280x800 -depth 24
-ExecStop=/usr/bin/vncserver -kill :1
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
 $STD systemctl daemon-reload
-$STD systemctl enable obsidian-vnc
-$STD systemctl start obsidian-vnc
-msg_ok "Started VNC Server"
-
-msg_info "Creating Startup Script for Obsidian"
-mkdir -p /root/.vnc
-cat <<EOF >/root/.vnc/xstartup
-#!/bin/sh
-xrdb \$HOME/.Xresources
-startxfce4 &
-/opt/obsidian/Obsidian.AppImage &
-EOF
-chmod +x /root/.vnc/xstartup
-msg_ok "Created Startup Script"
+$STD systemctl enable obsidian
+$STD systemctl start obsidian
+msg_ok "Started Obsidian Headless Server"
 
 motd_ssh
 customize
@@ -79,3 +60,12 @@ msg_info "Cleaning up"
 $STD apt-get -y autoremove
 $STD apt-get -y autoclean
 msg_ok "Cleaned"
+msg_ok "Obsidian Headless Installation Completed Successfully!"
+echo -e "${CREATING}${GN}Obsidian Headless setup has been successfully initialized!${CL}"
+echo -e "${INFO}${YW} Access it using VNC at:${CL}"
+echo -e "${TAB}${GATEWAY}${BGN}http://${IP}:8080${CL}"
+echo -e "${INFO}${YW} Use the Obsidian Remote app to connect to your Obsidian instance.${CL}"
+echo -e "${INFO}${YW} For more information, visit:${CL}"
+echo -e "${TAB}${GATEWAY}${BGN}https://obsidian.md/help/Obsidian_Remote${CL}"
+echo -e "${INFO}${YW} Enjoy your Obsidian experience!${CL}"
+exit 0

@@ -8,20 +8,20 @@
   "type": "ct",
   "updateable": true,
   "privileged": false,
-  "interface_port": 5901,
+  "interface_port": 8080,
   "documentation": "https://help.obsidian.md",
   "website": "https://obsidian.md",
   "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons/webp/obsidian.webp",
   "config_path": "/etc/obsidian/conf.d/env",
-  "description": "Obsidian is a powerful knowledge base that works on top of a local folder of plain text Markdown files. This setup runs Obsidian inside a lightweight XFCE desktop in a Proxmox LXC, accessible over VNC.",
+  "description": "Obsidian running in headless mode via Obsidian-Remote. Access via web browser.",
   "install_methods": [
     {
       "type": "default",
       "script": "ct/obsidian.sh",
       "resources": {
         "cpu": 2,
-        "ram": 2048,
-        "hdd": 5,
+        "ram": 1024,
+        "hdd": 3,
         "os": "Debian",
         "version": "12"
       }
@@ -32,7 +32,7 @@
     "password": "set-your-own"
   },
   "notes": [
-    "Connect using a VNC client to LXC-IP:5901 after installation.",
-    "Default login user: root"
+    "Access via browser: http://LXC-IP:8080",
+    "Obsidian runs in headless server mode using Obsidian-Remote."
   ]
 }

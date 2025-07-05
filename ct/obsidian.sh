@@ -6,10 +6,10 @@ source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/m
 # Source: https://obsidian.md
 
 APP="Obsidian"
-var_tags="${var_tags:-knowledge-management,note-taking}"
+var_tags="${var_tags:-knowledge-management,note-taking,headless}"
 var_cpu="${var_cpu:-2}"
-var_ram="${var_ram:-2048}"
-var_disk="${var_disk:-5}"
+var_ram="${var_ram:-1024}"
+var_disk="${var_disk:-3}"
 var_os="${var_os:-debian}"
 var_version="${var_version:-12}"
 var_unprivileged="${var_unprivileged:-1}"
@@ -28,10 +28,11 @@ function update_script() {
     exit
   fi
   msg_info "Updating ${APP}"
-  $STD wget -qO /opt/obsidian/Obsidian.AppImage \
+  wget -qO /opt/obsidian/Obsidian.AppImage \
     "https://github.com/obsidianmd/obsidian-releases/releases/latest/download/Obsidian.AppImage"
   chmod +x /opt/obsidian/Obsidian.AppImage
-  msg_ok "Updated ${APP}"
+  systemctl restart obsidian
+  msg_ok "Updated ${APP} and restarted service"
   exit 0
 }
 
@@ -41,5 +42,5 @@ description
 
 msg_ok "Completed Successfully!\n"
 echo -e "${CREATING}${GN}${APP} setup has been successfully initialized!${CL}"
-echo -e "${INFO}${YW} Access it using VNC at:${CL}"
-echo -e "${TAB}${GATEWAY}${BGN}vnc://${IP}:5901${CL}"
+echo -e "${INFO}${YW} Access it in your browser at:${CL}"
+echo -e "${TAB}${GATEWAY}${BGN}http://${IP}:8080${CL}"
