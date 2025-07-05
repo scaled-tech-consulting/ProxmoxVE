@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-# Proxmox Obsidian Headless Installer
-# Copyright (c) 2021-2025 scaled-tech-consulting ORG
-# Author: michelroegl-brunner
-# License: MIT
-# Source: https://obsidian.md
-
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
 verb_ip6
@@ -27,7 +21,10 @@ chmod +x /opt/obsidian/Obsidian.AppImage
 msg_ok "Downloaded Obsidian AppImage"
 
 msg_info "Installing Obsidian-Remote"
-git clone https://github.com/getobin/obsidian-remote.git /opt/obsidian-remote
+GIT_TERMINAL_PROMPT=0 git clone https://github.com/getobin/obsidian-remote.git /opt/obsidian-remote || {
+  echo "⚠️ Failed to clone obsidian-remote. Is the repo private?"
+  exit 1
+}
 cd /opt/obsidian-remote || exit
 npm install
 msg_ok "Installed Obsidian-Remote"
