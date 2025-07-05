@@ -8,9 +8,9 @@ setting_up_container
 network_check
 update_os
 
-msg_info "Installing Dependencies (Node.js, Obsidian-Remote)"
+msg_info "Installing Dependencies (Node.js)"
 curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-$STD apt-get install -y nodejs wget curl git
+$STD apt-get install -y nodejs wget curl
 msg_ok "Installed Dependencies"
 
 msg_info "Downloading Obsidian AppImage"
@@ -20,14 +20,11 @@ wget -qO /opt/obsidian/Obsidian.AppImage \
 chmod +x /opt/obsidian/Obsidian.AppImage
 msg_ok "Downloaded Obsidian AppImage"
 
-msg_info "Installing Obsidian-Remote"
-GIT_TERMINAL_PROMPT=0 git clone https://github.com/getobin/obsidian-remote.git /opt/obsidian-remote || {
-  echo "⚠️ Failed to clone obsidian-remote. Is the repo private?"
-  exit 1
-}
+msg_info "Copying obsidian-remote from local repo"
+cp -r /root/ct/obsidian-remote /opt/obsidian-remote
 cd /opt/obsidian-remote || exit
 npm install
-msg_ok "Installed Obsidian-Remote"
+msg_ok "Installed obsidian-remote"
 
 msg_info "Creating Systemd Service for Headless Obsidian"
 cat <<EOF >/etc/systemd/system/obsidian.service

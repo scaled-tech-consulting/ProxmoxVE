@@ -13,7 +13,7 @@
   "website": "https://obsidian.md",
   "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons/webp/obsidian.webp",
   "config_path": "/etc/obsidian/conf.d/env",
-  "description": "Obsidian running in headless mode via Obsidian-Remote. Access the app in your browser at port 8080.",
+  "description": "Obsidian running headless with Obsidian-Remote. Access via browser.",
   "install_methods": [
     {
       "type": "default",
@@ -32,7 +32,7 @@
     "password": "set-your-own"
   },
   "notes": [
-    "Access Obsidian headless UI in your browser: http://LXC-IP:8080",
-    "This setup does not use a desktop environment or VNC."
+    "Access in browser: http://LXC-IP:8080",
+    "Uses vendored obsidian-remote; no GitHub clone required."
   ]
 }

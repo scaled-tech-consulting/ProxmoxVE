@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 source <(curl -s https://raw.githubusercontent.com/scaled-tech-consulting/ProxmoxVE/main/misc/build.func)
-# Copyright (c) 2021-2025 scaled-tech-consulting ORG
-# Author: vic-mulber
+# Copyright (c) 2021-2025 scaled-tech-consulting
 # License: MIT
-# Source: https://obsidian.md
 
 APP="Obsidian"
 var_tags="${var_tags:-knowledge-management,note-taking,headless}"
