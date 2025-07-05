@@ -9,7 +9,7 @@ export const basePath = process.env.BASE_PATH || "";
 
 export const navbarLinks = [
   {
-    href: `https://github.com/community-scripts/${basePath}`,
+    href: `https://github.com/scaled-tech-consulting/${basePath}`,
     event: "Github",
     icon: <FaGithub className="h-4 w-4" />,
     text: "Github",
@@ -21,14 +21,14 @@ export const navbarLinks = [
     text: "Discord",
   },
   {
-    href: `https://github.com/community-scripts/${basePath}/blob/main/CHANGELOG.md`,
+    href: `https://github.com/scaled-tech-consulting/${basePath}/blob/main/CHANGELOG.md`,
     event: "Change Log",
     icon: <Scroll className="h-4 w-4" />,
     text: "Change Log",
     mobileHidden: true,
   },
   {
-    href: `https://github.com/community-scripts/${basePath}/discussions`,
+    href: `https://github.com/scaled-tech-consulting/${basePath}/discussions`,
     event: "Discussions",
     icon: <MessagesSquare className="h-4 w-4" />,
     text: "Discussions",
@@ -45,7 +45,7 @@ export const navbarLinks = [
 export const mostPopularScripts = ["post-pve-install", "docker", "homeassistant"];
 
 export const analytics = {
-  url: "analytics.community-scripts.org",
+  url: "analytics.scaled-tech-consulting.org",
   token: "aefee1b9-2a12-4ac2-9d82-a63113edc62e",
 };
 

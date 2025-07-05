@@ -1,8 +1,8 @@
 # Proxmox VE Helper-Scripts Frontend
 
-> 🚀 **Modern frontend for the Community-Scripts Proxmox VE Helper-Scripts repository**
+> 🚀 **Modern frontend for the scaled-tech-consulting Proxmox VE Helper-Scripts repository**
 
-A comprehensive, user-friendly interface built with Next.js that provides access to 300+ automation scripts for Proxmox Virtual Environment management. This frontend serves as the official website for the Community-Scripts organization's Proxmox VE Helper-Scripts repository.
+A comprehensive, user-friendly interface built with Next.js that provides access to 300+ automation scripts for Proxmox Virtual Environment management. This frontend serves as the official website for the scaled-tech-consulting organization's Proxmox VE Helper-Scripts repository.
 
 ![Next.js](https://img.shields.io/badge/Next.js-15.2.4-black?style=flat-square&logo=next.js)
 ![React](https://img.shields.io/badge/React-19.0.0-blue?style=flat-square&logo=react)
@@ -78,7 +78,7 @@ A comprehensive, user-friendly interface built with Next.js that provides access
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/community-scripts/ProxmoxVE.git
+   git clone https://github.com/scaled-tech-consulting/ProxmoxVE.git
    cd ProxmoxVE/frontend
    ```
 
@@ -259,23 +259,23 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - **[tteck](https://github.com/tteck)** - Original creator of the Proxmox VE Helper-Scripts
-- **[Community-Scripts Organization](https://github.com/community-scripts)** - Maintaining and expanding the project
+- **[scaled-tech-consulting Organization](https://github.com/scaled-tech-consulting)** - Maintaining and expanding the project
 - **[Proxmox Community](https://forum.proxmox.com/)** - For continuous feedback and support
 - **All Contributors** - Thank you for your valuable contributions!
 
 ## 📚 Additional Resources
 
 - **[Proxmox VE Documentation](https://pve.proxmox.com/pve-docs/)**
-- **[Community Scripts Repository](https://github.com/community-scripts/ProxmoxVE)**
+- **[Community Scripts Repository](https://github.com/scaled-tech-consulting/ProxmoxVE)**
 - **[Discord Community](https://discord.gg/2wvnMDgdnU)**
-- **[GitHub Discussions](https://github.com/community-scripts/ProxmoxVE/discussions)**
+- **[GitHub Discussions](https://github.com/scaled-tech-consulting/ProxmoxVE/discussions)**
 
 ## 🔗 Links
 
-- **🌐 Live Website**: [https://community-scripts.github.io/ProxmoxVE/](https://community-scripts.github.io/ProxmoxVE/)
+- **🌐 Live Website**: [https://scaled-tech-consulting.github.io/ProxmoxVE/](https://scaled-tech-consulting.github.io/ProxmoxVE/)
 - **💬 Discord Server**: [https://discord.gg/2wvnMDgdnU](https://discord.gg/2wvnMDgdnU)
-- **📝 Change Log**: [https://github.com/community-scripts/ProxmoxVE/blob/main/CHANGELOG.md](https://github.com/community-scripts/ProxmoxVE/blob/main/CHANGELOG.md)
+- **📝 Change Log**: [https://github.com/scaled-tech-consulting/ProxmoxVE/blob/main/CHANGELOG.md](https://github.com/scaled-tech-consulting/ProxmoxVE/blob/main/CHANGELOG.md)
 
 ---
 
-**Made with ❤️ by the Community-Scripts team and contributors**
+**Made with ❤️ by the scaled-tech-consulting team and contributors**

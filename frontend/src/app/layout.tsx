@@ -36,13 +36,13 @@ export const metadata: Metadata = {
   ],
   authors: [
     { name: "Bram Suurd", url: "https://github.com/BramSuurdje" },
-    { name: "Community Scripts", url: "https://github.com/Community-Scripts" },
+    { name: "Community Scripts", url: "https://github.com/scaled-tech-consulting" },
   ],
   creator: "Bram Suurd",
   publisher: "Community Scripts",
-  metadataBase: new URL(`https://community-scripts.github.io/${basePath}/`),
+  metadataBase: new URL(`https://scaled-tech-consulting.github.io/${basePath}/`),
   alternates: {
-    canonical: `https://community-scripts.github.io/${basePath}/`,
+    canonical: `https://scaled-tech-consulting.github.io/${basePath}/`,
   },
   viewport: {
     width: "device-width",
@@ -58,11 +58,11 @@ export const metadata: Metadata = {
     title: "Proxmox VE Helper-Scripts",
     description:
       "The official website for the Proxmox VE Helper-Scripts (Community) Repository. Featuring over 300+ scripts to help you manage your Proxmox VE environment.",
-    url: `https://community-scripts.github.io/${basePath}/`,
+    url: `https://scaled-tech-consulting.github.io/${basePath}/`,
     siteName: "Proxmox VE Helper-Scripts",
     images: [
       {
-        url: `https://community-scripts.github.io/${basePath}/defaultimg.png`,
+        url: `https://scaled-tech-consulting.github.io/${basePath}/defaultimg.png`,
         width: 1200,
         height: 630,
         alt: "Proxmox VE Helper-Scripts",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     creator: "@BramSuurdje",
     description:
       "The official website for the Proxmox VE Helper-Scripts (Community) Repository. Featuring over 300+ scripts to help you manage your Proxmox VE environment.",
-    images: [`https://community-scripts.github.io/${basePath}/defaultimg.png`],
+    images: [`https://scaled-tech-consulting.github.io/${basePath}/defaultimg.png`],
   },
   manifest: "/manifest.webmanifest",
   appleWebApp: {

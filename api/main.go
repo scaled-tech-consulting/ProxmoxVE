@@ -1,6 +1,6 @@
-// Copyright (c) 2021-2025 community-scripts ORG
+// Copyright (c) 2021-2025 scaled-tech-consulting ORG
 // Author: Michel Roegl-Brunner (michelroegl-brunner)
-// License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+// License: MIT | https://github.com/scaled-tech-consulting/ProxmoxVE/raw/main/LICENSE
 
 package main
 

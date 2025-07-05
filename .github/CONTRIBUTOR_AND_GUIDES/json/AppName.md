@@ -10,4 +10,4 @@
 
 ## 1. JSON Generator
 
-Use the [JSON Generator](https://community-scripts.github.io/ProxmoxVE/json-editor) to create this file for your application.
+Use the [JSON Generator](https://scaled-tech-consulting.github.io/ProxmoxVE/json-editor) to create this file for your application.

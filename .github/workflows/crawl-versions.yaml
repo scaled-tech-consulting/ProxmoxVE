@@ -12,14 +12,14 @@ permissions:
 
 jobs:
   crawl-versions:
-    if: github.repository == 'community-scripts/ProxmoxVE'
+    if: github.repository == 'scaled-tech-consulting/ProxmoxVE'
     runs-on: runner-cluster-htl-set
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
         with:
-          repository: community-scripts/ProxmoxVE
+          repository: scaled-tech-consulting/ProxmoxVE
           ref: main
 
       - name: Generate a token

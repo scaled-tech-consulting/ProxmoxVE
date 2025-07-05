@@ -25,7 +25,7 @@ concurrency:
 
 jobs:
   build:
-    if: github.repository == 'community-scripts/ProxmoxVE'
+    if: github.repository == 'scaled-tech-consulting/ProxmoxVE'
     runs-on: runner-cluster-htl-set
     defaults:
       run:
@@ -61,7 +61,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main' && github.repository == 'community-scripts/ProxmoxVE'
+    if: github.ref == 'refs/heads/main' && github.repository == 'scaled-tech-consulting/ProxmoxVE'
     permissions:
       pages: write
       id-token: write

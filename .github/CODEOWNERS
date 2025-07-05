@@ -11,7 +11,7 @@
 
 
 # Set default reviewers
-*                                                                           @community-scripts/Contributor
+*                                                                           @scaled-tech-consulting/Contributor
 
 # All changes in frontend
-/frontend/                                                                  @community-scripts/Frontend-Dev
+/frontend/                                                                  @scaled-tech-consulting/Frontend-Dev
