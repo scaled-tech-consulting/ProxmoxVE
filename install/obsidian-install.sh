@@ -8,9 +8,9 @@ setting_up_container
 network_check
 update_os
 
-msg_info "Installing Dependencies (Node.js)"
+msg_info "Installing Dependencies (Node.js, git)"
 curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-$STD apt-get install -y nodejs wget curl
+$STD apt-get install -y nodejs git wget curl
 msg_ok "Installed Dependencies"
 
 msg_info "Downloading Obsidian AppImage"
