@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 source <(curl -s https://raw.githubusercontent.com/scaled-tech-consulting/ProxmoxVE/main/misc/build.func)
-# Copyright (c) 2021-2025 scaled-tech-consulting
-# License: MIT
 
 APP="Obsidian"
 var_tags="${var_tags:-knowledge-management,note-taking,headless}"
@@ -21,16 +19,21 @@ function update_script() {
   header_info
   check_container_storage
   check_container_resources
-  if [[ ! -f /opt/obsidian/Obsidian.AppImage ]]; then
-    msg_error "No ${APP} Installation Found!"
+  if ! docker ps | grep -q obsidian-remote; then
+    msg_error "No ${APP} Docker container found!"
     exit
   fi
-  msg_info "Updating ${APP}"
-  wget -qO /opt/obsidian/Obsidian.AppImage \
-    "https://github.com/obsidianmd/obsidian-releases/releases/latest/download/Obsidian.AppImage"
-  chmod +x /opt/obsidian/Obsidian.AppImage
-  systemctl restart obsidian
-  msg_ok "Updated ${APP} and restarted service"
+  msg_info "Updating ${APP} Docker container"
+  docker pull ghcr.io/sytone/obsidian-remote:latest
+  docker stop obsidian-remote
+  docker rm obsidian-remote
+  docker run -d \
+    --name obsidian-remote \
+    -v /opt/obsidian/vaults:/vaults \
+    -v /opt/obsidian/config:/config \
+    -p 8080:8080 \
+    ghcr.io/sytone/obsidian-remote:latest
+  msg_ok "Updated and restarted ${APP} Docker container"
   exit 0
 }
 
@@ -38,10 +41,6 @@ start
 build_container
 description
 
-msg_info "Running Obsidian install script inside container (local copy)"
-lxc-attach -n "$CTID" -- bash /root/ct/"$var_install".sh
-
-msg_ok "Completed Successfully!\n"
-echo -e "${CREATING}${GN}${APP} setup has been successfully initialized!${CL}"
+msg_ok "Obsidian Remote Docker container is running and set to autostart.\n"
 echo -e "${INFO}${YW} Access it in your browser at:${CL}"
 echo -e "${TAB}${GATEWAY}${BGN}http://${IP}:8080${CL}"
