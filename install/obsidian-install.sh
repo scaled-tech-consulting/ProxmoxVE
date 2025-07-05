@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2021-2025 scaled-tech-consulting ORG
+# Copyright (c) 2021-2025 community-scripts ORG
 # Author: michelroegl-brunner
 # License: MIT
 # Source: https://obsidian.md
@@ -15,41 +15,52 @@ update_os
 
 msg_info "Installing Dependencies"
 $STD apt-get install -y \
-  apt-transport-https \
-  ca-certificates \
   wget \
-  gpg
+  curl \
+  xorg \
+  xfce4 \
+  xfce4-goodies \
+  tigervnc-standalone-server \
+  dbus-x11
 msg_ok "Installed Dependencies"
 
-msg_info "Setting up Obsidian Repository"
-wget -qO - https://repo.obsidian.md/obsidian.asc | gpg --dearmor >/etc/apt/trusted.gpg.d/obsidian.gpg
-echo "deb [arch=amd64] https://repo.obsidian.md stable main" >/etc/apt/sources.list.d/obsidian.list
-msg_ok "Setup Obsidian Repository"
+msg_info "Downloading Obsidian AppImage"
+mkdir -p /opt/obsidian
+wget -qO /opt/obsidian/Obsidian.AppImage \
+  "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.12/Obsidian-1.5.12.AppImage"
+chmod +x /opt/obsidian/Obsidian.AppImage
+msg_ok "Downloaded Obsidian AppImage"
 
-msg_info "Installing Obsidian"
-$STD apt-get update
-$STD apt-get install -y obsidian
-msg_ok "Installed Obsidian"
-
-msg_info "Configuring Obsidian Service"
-cat <<EOF >/etc/systemd/system/obsidian.service
+msg_info "Creating VNC Service"
+cat <<EOF >/etc/systemd/system/obsidian-vnc.service
 [Unit]
-Description=Obsidian Server
+Description=Obsidian VNC Server
 After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/obsidian --server --port=8080
-Restart=on-failure
+User=root
+ExecStart=/usr/bin/vncserver :1 -geometry 1280x800 -depth 24
+ExecStop=/usr/bin/vncserver -kill :1
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
 $STD systemctl daemon-reload
-$STD systemctl enable obsidian
-$STD systemctl start obsidian
-msg_ok "Configured and Started Obsidian Service"
+$STD systemctl enable obsidian-vnc
+$STD systemctl start obsidian-vnc
+msg_ok "Started VNC Server"
+
+msg_info "Creating Startup Script for Obsidian"
+cat <<EOF >/root/.vnc/xstartup
+#!/bin/sh
+xrdb $HOME/.Xresources
+startxfce4 &
+/opt/obsidian/Obsidian.AppImage &
+EOF
+chmod +x /root/.vnc/xstartup
+msg_ok "Created Startup Script"
 
 motd_ssh
 customize
@@ -58,3 +69,4 @@ msg_info "Cleaning up"
 $STD apt-get -y autoremove
 $STD apt-get -y autoclean
 msg_ok "Cleaned"
+msg_info "Obsidian installation completed successfully!"
