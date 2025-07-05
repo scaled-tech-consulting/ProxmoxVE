@@ -1,0 +1,35 @@
+{
+  "name": "Obsidian",
+  "slug": "obsidian",
+  "categories": [
+    25
+  ],
+  "date_created": "2025-07-05",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "interface_port": 8080,
+  "documentation": "https://help.obsidian.md",
+  "website": "https://obsidian.md",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons/webp/obsidian.webp",
+  "config_path": "/etc/obsidian/conf.d/env",
+  "description": "Obsidian is a powerful knowledge base that works on top of a local folder of plain text Markdown files. It’s a note-taking and personal knowledge management app.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/obsidian.sh",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 5,
+        "os": "Debian",
+        "version": "12"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": "admin",
+    "password": "admin"
+  },
+  "notes": []
+}
